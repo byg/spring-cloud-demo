@@ -1,0 +1,22 @@
+server:
+  port: 8983
+  
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    preferIfAddress: false
+  client:
+    serviceUrl.defaultZone: http://127.0.0.1:8970/eureka
+    
+spring:
+  application:
+    name: ibyg-cloud-module-test2
+  profiles:
+    active: default
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: ibyg-cloud-config
+  main:
+    bannerMode: "off"

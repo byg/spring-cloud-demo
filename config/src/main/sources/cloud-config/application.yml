@@ -1,0 +1,47 @@
+server:
+  servlet:
+    context-path: /js
+  tomcat:
+    uri-encoding: UTF-8
+   
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    preferIfAddress: false
+    statusPageUrlPath: ${server.servlet.context-path}
+    healthCheckUrlPath: ${server.servlet.context-path}/actuator/health
+  client:
+    serviceUrl.defaultZone: http://127.0.0.1:8970/eureka
+
+# 管理基础路径
+adminPath: /a
+
+# 启用负载均衡
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  OkToRetryOnAllOperations: false
+  MaxAutoRetriesNextServer: 1
+  MaxAutoRetries: 0
+
+# 客户端调用熔断降级的线程超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+# 微服务列表
+service:
+  test1:
+    name: ibyg-cloud-module-test1
+    path: ${server.servlet.context-path}
+  test2:
+    name: ibyg-cloud-module-test2
+    path: ${server.servlet.context-path}
+
+# 配置jdbc、redis、缓存等

@@ -1,0 +1,38 @@
+server:
+  port: 8980
+  servlet:
+    context-path: /js
+  tomcat:
+    uri-encoding: UTF-8
+   
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    preferIfAddress: false
+    statusPageUrlPath: ${server.servlet.context-path}
+    healthCheckUrlPath: ${server.servlet.context-path}/actuator/health
+  client:
+    serviceUrl.defaultZone: http://127.0.0.1:8970/eureka
+    
+spring:
+  application:
+    name: ibyg-cloud-gateway
+  profiles:
+    active: default
+  cloud:
+    gateway:
+      defaultFilters: 
+        - PreserveHostHeader # 在 gateway 转发请求的时候把原始请求的 host 头部带上，转发给目标服务
+      routes:
+        - id: test1
+          uri: lb://ibyg-cloud-module-test1/js/a/test1 # 从注册中心获取服务
+          predicates:
+            - Path=/js/a/test1/** # 匹配需要跳转的路径
+        - id: test2
+          uri: lb://ibyg-cloud-module-test2/js/a/test2 # 从注册中心获取服务
+          predicates:
+            - Path=/js/a/test2/** # 匹配需要跳转的路径
+        
+  main:
+    bannerMode: "off"
+          

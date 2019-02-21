@@ -1,0 +1,29 @@
+server:
+  port: 8970
+  servlet:
+    context-path: ~
+  tomcat:
+    uri-encoding: UTF-8
+
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    preferIpAddress: false
+
+  server:
+    enableSelfPreservation: false
+    evictionIntervalTimerInMs: 6000
+    waitTimeInMsWhenSyncEmpty: 6000
+    
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl.defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+spring:
+  application:
+    name: ibyg-cloud-eureka
+  profiles:
+    active: default
+  main:
+    bannerMode: "off"
